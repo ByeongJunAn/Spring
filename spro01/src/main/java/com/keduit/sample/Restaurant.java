@@ -13,4 +13,6 @@ public class Restaurant {
 	@Setter(onMethod_ = @Autowired)
 	// onMethod=@_({AnnotationGHoHere})) 자바 1.8 이전 표현법
 	private Chef chef;
+	
+
 }

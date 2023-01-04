@@ -20,6 +20,9 @@ public class SampleTests {
 	@Setter(onMethod_ = {@Autowired})
 	private Restaurant restaurant;
 	
+	@Setter(onMethod_ = {@Autowired})
+	private Hotel hotel;
+	
 	@Test
 	public void testExist() {
 		assertNotNull(restaurant); //notnull일때만 사용하겠다
@@ -28,6 +31,20 @@ public class SampleTests {
 		log.info(restaurant);
 		log.info("---------------------");
 		log.info(restaurant.getChef());
+	
 	}
+	
+	
+	@Test
+	public void testExistHotel() {
+		assertNotNull(hotel); //notnull일때만 사용하겠다
+		
+		System.out.println("testHotel1--------");
+		log.info(hotel);
+		log.info("---------------------");
+		log.info(hotel.getChef());
+	
+	}
+	
 	
 }
