@@ -22,6 +22,10 @@
 				<!-- <div class="row">
                                 <div class="col-lg-6"> -->
 				  <form action="/board/modify" method="POST">
+				  	
+				    <input type="hidden" name="pageNum" value="${cri.pageNum}">
+				    <input type="hidden" name="amount" value="${cri.amount}">
+				    
 					<div class="form-group">
 						<label>번호</label> <input class="form-control" name="bno" value='<c:out value="${board.bno}"/>' readonly="readonly">
 					</div>
@@ -81,16 +85,22 @@ $(document).ready(function(){
 		if(operation === 'remove') {
 			formObj.attr("action", "/board/remove")
 				   .attr("method", "POST");
-			formObj.submit();
 		} else if(operation === 'modify'){
 			formObj.attr("action", "/board/modify")
 					.attr("method", "POST");
-			formObj.submit();
 		} else if(operation === 'list' ){
-			self.location = "/board/list";
+			formObj.attr("action", "/board/list").attr("method", "get");
+
+			var pageNumTag = $("input[name='pageNum']").clone();
+			var amountTag = $("input[name='amount']").clone();
+			formObj.empty();
+			formObj.append(pageNumTag);
+			formObj.append(amountTag);
+			
 		}
 		
-		
+		formObj.submit();
+
 	})
 })
 </script>

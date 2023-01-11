@@ -38,11 +38,16 @@
 					<div class="form-group">
 						<label>작성자</label> <input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
 					</div>
-					<button data-oper='modify' class="btn btn-default" 
-					onclick="location.href='/board/modify?bno=${board.bno}'">
+					<button data-oper='modify' class="btn btn-default">
 							게시글 수정</button>
-					<button data-oper='list' class="btn btn-default" 
-					onclick="location.href='/board/list'">게시글 목록</button>
+					<button data-oper='list' class="btn btn-default">게시글 목록</button>
+					
+					
+					<form id="operForm" action="/board/modify" method="get">
+						<input type="hidden" id='bno' name='bno' value='${board.bno}'>
+						<input type="hidden" id="pageNum" name="pageNum" value="${cri.pageNum}">
+						<input type="hidden" id="amount" name="amount" value="${cri.amount}">
+					</form>
 			
 			</div>
 		</div>
@@ -52,6 +57,22 @@
 </div>
 <!-- /.row -->
 
+<script>
+	$(document).ready(function(){
+		var operForm = $("#operForm");
+		
+		$("button[data-oper='modify']").on("click", function(e){
+			operForm.attr("action", "/board/modify").submit();
+		});
+		
+		$("button[data-oper='list']").on("click", function(e){
+			operForm.find("#bno").remove();
+			operForm.attr("action", "/board/list");
+			operForm.submit();
+		})
+	})
+
+</script>
 
 
 
