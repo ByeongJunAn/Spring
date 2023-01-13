@@ -1,0 +1,114 @@
+
+create SEQUENCE seq_board;
+
+create table tbl_board(
+    bno number(10,0),
+    title varchar2(200)   not null,
+    content varchar2(2000) not null,
+    writer varchar2(50) not null,
+    regdate date default sysdate,
+    updatedate date default sysdate
+    );
+    
+    alter table tbl_board add CONSTRAINT pk_board
+    primary key (bno);
+    
+    
+    INSERT into tbl_board(bno, title, content, writer)
+    VALUES (seq_board.nextval, '테스트 제목10', '테스트 내용10', 'user10');
+    
+    
+    select rownum, bno, title from tbl_board;
+    
+    select rownum, bno, title from tbl_board order by bno desc;
+    
+    insert into tbl_board(bno, title, content, writer)
+    (select seq_board.nextval, title, content, writer from tbl_board);
+    
+   commit;
+   
+   select /*+ index_desc(tbl_board pk_board) */ rownum, bno, title from tbl_board;
+   
+   select /*+ full(tbl_board) */ rownum, bno, title from tbl_board order by bno desc;
+   
+   select bno, title, content from( 
+     select /*+ index_desc(tbl_board pk_board) */
+          rownum rn, bno, title, content from tbl_board
+          where rownum <= 40   /*단순히 rownum으로 범위를 지정해서 찾으려면 반드시 1부터 찾을 수 있게 해야함*/
+          )
+          where rn >30;
+          
+ select rn, bno, title, content, writer, regDate, updateDate from( 
+     select /*+ index_desc(tbl_board pk_board) */
+          rownum rn, bno, title, content, writer, regDate, updateDate from tbl_board
+          where (title like '%테스트%' or writer like '%user%') and rownum <= 10   
+          )
+          where rn >0;
+
+
+
+
+ create SEQUENCE seq; /* 1. 시퀀스 테이블(bno자동 숫자 추가를 위한 테이블) 만들기*/
+ drop sequence seq;
+create table tbl_tododate( /* 2. 테이블 만들기 */
+     bno number (10,0) primary key,
+     tododate date default sysdate,
+     content varchar2(2000) not null,
+     regdate date default sysdate,
+     updatedate date default sysdate
+ );
+
+
+drop table tbl_tododate;
+ 
+ select * from tbl_tododate; 
+ 
+ insert into tbl_tododate(bno, content, tododate) 
+                  values(seq.nextval, '테스트 내용','2023-01-12'); /*3.테이블에 값 입력하기*/
+                  
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[[[[[[tododate 목록 만들기]]]]]]]
+tododate: content에 들어갈 내용을 해야할 날짜
+regdate: 등록날짜
+updatedate:수정날짜
+
+
+<<<<<오라클디벨롭>>>>>>>>
+ create SEQUENCE seq; /* 1. 시퀀스 테이블(bno자동 숫자 추가를 위한 테이블) 만들기*/
+
+create table tbl_tododate( /* 2. 테이블 만들기 */
+     bno number (10,0) primary key,
+     tododate date default sysdate,
+     content varchar2(2000) not null,
+     regdate date default sysdate,
+     updatedate date default sysdate
+ );
+
+
+
+ 
+ insert into tbl_tododate(bno, content, tododate) 
+                  values(seq.nextval, '테스트 내용','2023-01-12'); /*3.테이블에 값 입력하기*/
+              
+   
+drop sequence seq;  //시퀀스 드랍할때 사용
+drop table tbl_tododate; // 테이블 드랍할 때 사용
+select * from tbl_tododate;  //테이블 확인용
+
+
+

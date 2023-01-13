@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace ="com.keduit.mapper.BoardMapper">
+	<select id="getList" resultType="com.keduit.domain.BoardVO">
+		select * from tbl_tododate order by bno DESC
+	</select>
+
+	<insert id="insert">
+		insert into tbl_tododate(bno, tododate, content)
+		values (seq.nextval, #{tododate},#{content})
+	</insert>
+
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="Long">
+			select seq.nextval from dual
+		</selectKey>
+	
+		insert into tbl_tododate (bno,tododate, content)
+		values (#{bno}, #{tododate}, #{content})	
+	
+	</insert>
+
+
+</mapper>
