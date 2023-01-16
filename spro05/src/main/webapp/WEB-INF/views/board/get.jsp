@@ -60,8 +60,56 @@
 </div>
 <!-- /.row -->
 
+
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+<script>
+	console.log("-----------------");
+	console.log(" reply JS test ");
+	console.log(" add test ");
+	
+	const bnoValue = '<c:out value="${board.bno}"/>';
+	
+	replyService.add(
+		{reply:"JS TEST", replyer:"tester", bno:bnoValue},
+		function(result){
+			alert("RESULT: " + result);
+		}
+	);
+	
+	console.log("---getList test----- ");
+	
+	replyService.getList({bno:bnoValue, page:1}, function(list){
+		for(var i = 0, len=list.length||0; i<len; i++){
+			console.log(list[i]);
+		}
+	});
+	
+	console.log("------ remove test --------");
+	replyService.remove(17, function(result){
+		console.log(result);
+		if(result==="success"){
+			alert("삭제 성공!");
+		}
+	}, function(err){
+		alert('삭제 실패!');
+	
+	});
+	
+	replyService.update(
+			{rno: 13, bno: bnoValue, reply:"update test by get.jsp"
+			}, function(result){
+				alert("수정 완료!")
+			});
+	
+</script>
+
+
+
 <script>
 	$(document).ready(function(){
+		
+		console.log(replyService)
+		
 		var operForm = $("#operForm");
 		
 		$("button[data-oper='modify']").on("click", function(e){

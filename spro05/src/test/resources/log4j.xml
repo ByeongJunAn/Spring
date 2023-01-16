@@ -34,8 +34,22 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
+	
+	 <!-- info 출력을 줄이기 위해서 추가 -->   
+   <logger name="jdbc.audit">
+      <level value="warn"/>
+   </logger>
+
+   <logger name="jdbc.resultset">
+      <level value="warn"/>
+   </logger>
+
+   <logger name="jdbc.connection">
+      <level value="warn"/>
+   </logger>
+	
 	
 </log4j:configuration>

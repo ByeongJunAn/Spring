@@ -67,7 +67,7 @@
 	</insert>
 
 	<select id="read" resultType="com.keduit.domain.BoardVO">
-		select from tbl_board where bno= #{bno}
+		select * from tbl_board where bno= #{bno}
 	</select>
 
 	<delete id="delete">
