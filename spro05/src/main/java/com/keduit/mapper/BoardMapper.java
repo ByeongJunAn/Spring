@@ -2,6 +2,7 @@ package com.keduit.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.keduit.domain.BoardVO;
@@ -30,4 +31,6 @@ public interface BoardMapper {
 	
 	public int getTotalCount(Criteria cri);
 	
+	public void updateReplyCnt(@Param("bno") Long bno, 
+							   @Param("replyCnt") int replyCnt);
 }
